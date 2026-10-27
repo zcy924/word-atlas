@@ -1,0 +1,21 @@
+server/sync.py
+  s_b03099b137d102::t_0e05e9096828c2 92-93
+src/store/sync.ts
+  s_b03099b137d102::t_0e05e9096828c2 29-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c0870e0d98df4b461ddfca9e7c571974ee44835e",
+  "prompts": {},
+  "sessions": {
+    "s_b03099b137d102": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a123b8-6193-73e2-a72d-c71602411a92",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "muguang <zhucaiyu@xiaohongshu.com>"
+    }
+  }
+}
