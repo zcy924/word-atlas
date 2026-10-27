@@ -1,0 +1,80 @@
+name: Deploy Word Atlas to HK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Test application
+        run: npm test
+      - name: Validate vocabulary and media
+        run: npm run check:atlas
+      - name: Build static site
+        run: npm run build
+      - name: Package complete site
+        run: tar -C dist -czf "$RUNNER_TEMP/word-atlas.tar.gz" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: word-atlas-${{ github.sha }}
+          path: ${{ runner.temp }}/word-atlas.tar.gz
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: word-atlas-hk
+      cancel-in-progress: false
+    environment:
+      name: hk
+      url: https://words.nivio.top
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: word-atlas-${{ github.sha }}
+      - name: Configure SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.HK_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ secrets.HK_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+      - name: Publish atomically
+        env:
+          HK_HOST: ${{ vars.HK_HOST }}
+          HK_USER: ${{ vars.HK_USER }}
+          REVISION: ${{ github.sha }}
+        run: |
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$HK_USER@$HK_HOST" "deploy $REVISION" < word-atlas.tar.gz
+      - name: Verify HTTPS and deployed revision
+        env:
+          REVISION: ${{ github.sha }}
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-delay 5 \
+            https://words.nivio.top/revision.txt > revision.txt
+          test "$(cat revision.txt)" = "$REVISION"
+      - name: Remove deployment key
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519
