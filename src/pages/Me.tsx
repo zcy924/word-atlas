@@ -5,6 +5,7 @@ import { isMastered } from "../store/srs";
 import { dayKey, exportBackup, importBackup, resetProgress, store, useStore, type Settings } from "../store/store";
 import { toast } from "../ui/Toast";
 import { streakOf } from "./Today";
+import { SyncPanel } from "../ui/SyncPanel";
 
 export function Me({ privateAvailable }: { privateAvailable: boolean }) {
   const atlas = useAtlas();
@@ -179,9 +180,11 @@ export function Me({ privateAvailable }: { privateAvailable: boolean }) {
           )}
         </section>
 
+        <SyncPanel />
+
         <section className="panel">
           <h3 className="eyebrow">数据</h3>
-          <p className="muted">进度只存在这台设备的浏览器里：没有账号，没有服务器。换设备时，导出备份再导入即可。</p>
+          <p className="muted">学习数据会保存在本机。可在上方开启多设备同步，也可以继续使用文件备份。</p>
           {saveError && <p className="warn-text">浏览器拒绝保存（可能是隐私模式或空间已满）。请尽快导出备份。</p>}
           <div className="data-actions">
             <button className="btn btn-ghost" onClick={download}>
@@ -194,7 +197,7 @@ export function Me({ privateAvailable }: { privateAvailable: boolean }) {
             <button
               className="btn btn-ghost btn-danger"
               onClick={() => {
-                if (confirm("确定清空这个词库的全部学习记录？此操作无法撤销，建议先导出备份。")) {
+                if (confirm("确定清空这个词库的全部学习记录？已开启同步时，清空结果也会同步。此操作无法撤销，建议先导出备份。")) {
                   resetProgress();
                   toast("学习记录已清空");
                 }

@@ -4,5 +4,8 @@ words.nivio.top {
 	header Cache-Control "no-cache"
 	@assets path /assets/*
 	header @assets Cache-Control "public, max-age=31536000, immutable"
+	handle /api/sync/* {
+		reverse_proxy 127.0.0.1:8322
+	}
 	file_server
 }

@@ -14,6 +14,7 @@ import { Practice } from "./pages/Practice";
 import { Today } from "./pages/Today";
 import { cue } from "./lib/sound";
 import { store, useStore } from "./store/store";
+import { startSync } from "./store/sync";
 import { EntryView } from "./ui/EntryView";
 import { AmbienceController, AmbiencePicker } from "./ui/Ambience";
 import { Logo } from "./ui/Logo";
@@ -92,6 +93,7 @@ export default function App() {
 }
 
 function Shell({ privateAvailable }: { privateAvailable: boolean }) {
+  useEffect(startSync, []);
   const { route, word } = useLocation();
   const onboarded = useStore((s) => s.settings.onboarded);
   const theme = useStore((s) => s.settings.theme);

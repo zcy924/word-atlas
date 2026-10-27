@@ -99,7 +99,7 @@ export default defineConfig({
       },
     },
   ],
-  server: { port: 5188, strictPort: true },
+  server: { port: 5188, strictPort: true, proxy: { "/api/sync": "http://127.0.0.1:8322" } },
   preview: { port: 5188, strictPort: true },
   build: { chunkSizeWarningLimit: 600 },
 });

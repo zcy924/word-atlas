@@ -3041,6 +3041,34 @@ code {
   display: grid;
   gap: 16px;
 }
+.sync-form, .sync-form label {
+  display: grid;
+  gap: 10px;
+}
+.sync-form {
+  margin: 16px 0;
+}
+.sync-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font: inherit;
+}
+.sync-code {
+  font-family: monospace;
+  letter-spacing: 0.12em;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.sync-conflict {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 12px;
+}
 @media (min-width: 900px) {
   .me-grid {
     grid-template-columns: 1fr 1fr;

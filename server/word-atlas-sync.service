@@ -1,0 +1,22 @@
+[Unit]
+Description=Word Atlas personal device sync
+After=network.target
+
+[Service]
+User=word-atlas-sync
+Group=word-atlas-sync
+WorkingDirectory=/opt/word-atlas-sync
+ExecStart=/usr/bin/python3 /opt/word-atlas-sync/sync.py
+Restart=on-failure
+StateDirectory=word-atlas-sync
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/word-atlas-sync
+MemoryMax=160M
+
+[Install]
+WantedBy=multi-user.target
