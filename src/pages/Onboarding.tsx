@@ -51,7 +51,7 @@ export function Onboarding() {
           <button className="btn btn-primary btn-xl" onClick={finish}>
             出发 <ArrowRight size={20} />
           </button>
-          <p className="muted">不用注册。进度只留在这台设备上，随时可以在「我的」里修改。</p>
+          <p className="muted">无需注册即可学习。进度默认保存在本机，也可在「我的」中开启多设备同步。</p>
         </div>
       </div>
     </div>

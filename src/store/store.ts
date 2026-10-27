@@ -258,6 +258,12 @@ export const store = {
     emit();
     scheduleSave();
   },
+  applySynced(progress: Progress, settings: Settings) {
+    state = { ...state, progress: sanitizeProgress(progress, state.progress.datasetId), settings: sanitizeSettings(settings) };
+    emit();
+    dirty = true;
+    flush();
+  },
 };
 
 export function useStore<T>(select: (s: State) => T): T {
