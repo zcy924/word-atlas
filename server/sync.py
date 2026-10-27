@@ -132,8 +132,8 @@ def make_handler(database, origin):
                         return self.reply(429, {"error": "操作太频繁，请一分钟后重试。"})
                     attempts.append(now)
                 password = body.get("password")
-                if not isinstance(password, str) or not 12 <= len(password) <= 128:
-                    return self.reply(400, {"error": "密码需要 12–128 个字符。"})
+                if not isinstance(password, str) or not 5 <= len(password) <= 128:
+                    return self.reply(400, {"error": "密码需要 5–128 个字符。"})
                 code = body.get("code", "")
                 if self.path.endswith("/create"):
                     code = database.create(password)
