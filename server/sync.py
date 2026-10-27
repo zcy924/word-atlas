@@ -89,6 +89,8 @@ def make_handler(database, origin):
     lock = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
+        timeout = 20
+
         def log_message(self, *_):
             pass  # Never log sync codes, cookies or learning data.
 

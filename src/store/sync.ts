@@ -26,14 +26,18 @@ class APIError extends Error {
   constructor(public status: number, message: string) { super(message); }
 }
 async function api<T>(path: string, method = "GET", body?: unknown): Promise<T> {
-  const response = await fetch(`/api/sync/${path}`, {
-    method, credentials: "same-origin", cache: "no-store",
-    headers: { "Content-Type": "application/json" },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  const result = await response.json();
-  if (!response.ok) throw new APIError(response.status, result.error || "同步失败，请稍后重试。");
-  return result as T;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(`/api/sync/${path}`, {
+      method, credentials: "same-origin", cache: "no-store", signal: controller.signal,
+      headers: { "Content-Type": "application/json" },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new APIError(response.status, result.error || "同步失败，请稍后重试。");
+    return result as T;
+  } finally { window.clearTimeout(timeout); }
 }
 const snapshot = (): Snapshot => {
   const { progress, settings } = store.get();
