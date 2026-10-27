@@ -1,0 +1,58 @@
+docs/device-sync.md
+  s_b03099b137d102::t_68eec97f1b07bf 1-46
+server/word-atlas-sync.service
+  s_b03099b137d102::t_587e00114fb3d2 1-22
+.github/workflows/deploy-hk.yml
+  s_b03099b137d102::t_b7b1e3857bbb26 80-81
+  s_b03099b137d102::t_587e00114fb3d2 26-27
+src/App.tsx
+  s_b03099b137d102::t_11748ce26c762d 17,96
+server/sync.py
+  s_b03099b137d102::t_779001c6b6a68a 1-188
+src/ui/SyncPanel.tsx
+  s_b03099b137d102::t_587e00114fb3d2 1-59
+src/styles/app.css
+  s_b03099b137d102::t_587e00114fb3d2 3044-3071
+.gitignore
+  s_b03099b137d102::t_68eec97f1b07bf 12-13
+scripts/deploy/Caddyfile
+  s_b03099b137d102::t_587e00114fb3d2 7-9
+src/pages/Me.tsx
+  s_b03099b137d102::t_587e00114fb3d2 8,183-184,187,200
+src/pages/About.tsx
+  s_b03099b137d102::t_587e00114fb3d2 48
+vite.config.ts
+  s_b03099b137d102::t_16873cd559a0e1 102
+src/pages/Onboarding.tsx
+  s_b03099b137d102::t_68eec97f1b07bf 54
+server/test_sync.py
+  s_b03099b137d102::t_b114f40fe9f658 1-99
+src/store/sync-policy.ts
+  s_b03099b137d102::t_11748ce26c762d 1-15
+src/store/store.ts
+  s_b03099b137d102::t_11748ce26c762d 261-266
+src/store/sync-policy.test.ts
+  s_b03099b137d102::t_b114f40fe9f658 1-31
+src/store/sync.ts
+  s_b03099b137d102::t_16873cd559a0e1 161-162,164,167-170,172-177
+  s_b03099b137d102::t_11748ce26c762d 1-101,103-160,163,165-166,171,178-189
+  s_b03099b137d102::t_0744b49cb1f99a 102
+public/sw.js
+  s_b03099b137d102::t_e2ed674c3fff59 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5bc0915d5d4076d5d422ad4784ce03ec8f45fe5e",
+  "prompts": {},
+  "sessions": {
+    "s_b03099b137d102": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a123b8-6193-73e2-a72d-c71602411a92",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "muguang <zhucaiyu@xiaohongshu.com>"
+    }
+  }
+}
