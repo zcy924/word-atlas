@@ -33,9 +33,9 @@ export function SyncPanel() {
             <button type="button" className={mode === "create" ? "is-on" : ""} disabled={sync.busy} onClick={() => { setMode("create"); setError(""); }}>首次开启</button>
           </div>
           {mode === "login" && <label>同步码<input value={code} onChange={(e) => setCode(e.target.value)} required maxLength={20} autoCapitalize="characters" autoComplete="username" placeholder="另一台设备显示的 12 位同步码" /></label>}
-          <label>同步密码<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={12} maxLength={128} autoComplete={mode === "create" ? "new-password" : "current-password"} placeholder="至少 12 个字符" /></label>
+          <label>同步密码<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={5} maxLength={128} autoComplete={mode === "create" ? "new-password" : "current-password"} placeholder="至少 5 个字符" /></label>
           {mode === "create" && <>
-            <label>再次输入密码<input type="password" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} required minLength={12} maxLength={128} autoComplete="new-password" /></label>
+            <label>再次输入密码<input type="password" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} required minLength={5} maxLength={128} autoComplete="new-password" /></label>
             <p className="muted">创建后会生成专属同步码，并上传本机学习数据。请保存同步码和密码，目前不提供找回功能。</p>
           </>}
           {error && <p className="warn-text" role="alert">{error}</p>}

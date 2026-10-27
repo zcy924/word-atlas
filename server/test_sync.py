@@ -59,6 +59,14 @@ class SyncTests(unittest.TestCase):
         self.assertNotIn(cookie.split("=", 1)[1].encode(), self.path.read_bytes())
         self.assertTrue(cookie.startswith(COOKIE + "="))
 
+    def test_five_character_password_and_length_boundaries(self):
+        for password in ("1234", "x" * 129):
+            self.assertEqual(self.request("/api/sync/create", "POST", {"password": password})[0], 400)
+        status, data, _ = self.request("/api/sync/create", "POST", {"password": "12345"})
+        self.assertEqual(status, 200)
+        self.assertEqual(self.request("/api/sync/login", "POST", {"code": data["code"], "password": "12345"})[0], 200)
+        self.assertEqual(self.request("/api/sync/login", "POST", {"code": data["code"], "password": "1234"})[0], 400)
+
     def test_isolation_persistence_and_device_only_session(self):
         code, a = self.create()
         _, b = self.create()
