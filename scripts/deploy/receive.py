@@ -31,6 +31,7 @@ try:
     if not index.get("count") or index["count"] != len(index["words"]):
         raise ValueError("Invalid vocabulary index")
     (incoming / "revision.txt").write_text(revision + "\n")
+    incoming.chmod(0o755)
     release = releases / f"{time.time_ns()}-{revision}"
     incoming.rename(release)
     link.unlink(missing_ok=True)
